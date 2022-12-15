@@ -1,0 +1,60 @@
+<div class="alerta" *ngFor="let alert of alerts" >
+    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)" *ngIf="showAlert" >
+        {{ alert.msg }}
+    </alert>
+</div>
+
+<div class="content">
+    <div class="card text-white bg-dark" style="width: 36rem;">
+        <div class="card-body">
+            <div class="header-login">
+                <h5 class="card-title">Login</h5>
+                <button type="button" class="btn btn-link" (click)="populateForm()">Usuário Padrão</button>
+            </div>
+            <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="save()">
+
+                <!-- input user name -->
+                <div class="form-group mb-3">
+                    <label for="inputUserNameId" class="visually-hidden">Password</label>
+                    <input type="text" class="form-control" id="inputUserNameId" placeholder="@userName"
+                        formControlName="userName" aria-describedby="inputUserNameId validationUserName" [ngClass]="{'is-invalid': (loginForm.get('userName')?.touched || 
+                        loginForm.get('userName')?.dirty) && !loginForm.get('userName')?.valid}" />
+
+                    <!-- msg de erro imput user name-->
+                    <div id="validationUserName" class="invalid-feedback">
+                        <span *ngIf="loginForm.controls.userName.errors?.required">Por favor insira seu nome
+                            de usuário.</span>
+                        <span
+                            *ngIf="loginForm.get('userName')?.dirty && !loginForm.controls.userName.errors?.required">Nome
+                            de usuário muito curto.</span>
+                    </div>
+                </div>
+
+                <!-- input password  -->
+                <div class="form-group col-sm-8">
+                    <label for="inputPassword2Id" class="visually-hidden">Password</label>
+                    <input type="password" class="form-control" id="inputPassword2Id" placeholder="Password"
+                        formControlName="password" [ngClass]="{'is-invalid': (loginForm.get('password')?.touched || 
+                        loginForm.get('password')?.dirty) && !loginForm.get('password')?.valid}">
+
+                    <!-- msg de erro imput password-->
+                    <div id="inputPassword2Id" class="invalid-feedback">
+                        <span *ngIf="loginForm.controls.password.errors?.required">Por favor insira sua senha.</span>
+                        <span
+                            *ngIf="loginForm.get('password')?.dirty && !loginForm.controls.password.errors?.required">Senha
+                            muito curta.</span>
+                    </div>
+                </div>
+                <div class="form-group col-auto">
+                    <button type="submit" class="btn btn-outline-success mb-3" [disabled]="ableButton">Confirme</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="valuesForm">
+    <br>Dirty: {{ loginForm.dirty }} | Touched: {{ loginForm.touched }} | Valid: {{ loginForm.valid }} | Value: {{
+    loginForm.value | json }}
+    <br>&nbsp;
+</div>
