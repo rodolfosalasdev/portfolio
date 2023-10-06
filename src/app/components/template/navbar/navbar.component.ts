@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public nameNavebarChange() {
-    this.nameNavebar = !this.nameNavebar;
+    this.nameNavebar = !!this.nameNavebar;
   }
 
 }
